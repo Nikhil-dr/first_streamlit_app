@@ -19,7 +19,7 @@ streamlit.dataframe(my_fruit_list)
 #Also set up example of fruits in the multiselect search bar
 #streamlit.multiselect("Pick some fruits:", list(my_fruit_list.index))
 #streamlit.multiselect("Pick some fruits:", list(my_fruit_list.index),['Apple','Avocado'])
-selected_fruits = streamlit.multiselect("Pick some fruits:", options=list(my_fruit_list.index), ['Avocado','Strawberries'])
+selected_fruits = streamlit.multiselect("Pick some fruits:",list(my_fruit_list.index), ['Avocado','Strawberries'])
 fruits_to_show = my_fruit_list.loc[selected_fruits]
 
 streamlit.dataframe(fruits_to_show) ##display the table on the page
