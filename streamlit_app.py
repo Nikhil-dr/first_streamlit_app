@@ -18,5 +18,5 @@ streamlit.dataframe(my_fruit_list)
 # Let's put a pick list here so they can pick the fruit they want to include
 #Also set up example of fruits in the multiselect search bar
 #streamlit.multiselect("Pick some fruits:", list(my_fruit_list.index))
-streamlit.multiselect("Pick some fruits:", list(my_fruit_list.index),['Banana','Grapes'])
+#streamlit.multiselect("Pick some fruits:", list(my_fruit_list.index),['Banana','Grapes'])
 selected_fruits = streamlit.multiselect("Pick some fruits:", options=list(my_fruit_list.index), default=["Avocado", "Strawberries"])
