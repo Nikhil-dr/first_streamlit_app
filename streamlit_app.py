@@ -1,7 +1,7 @@
 ## Importing Libraries
 import streamlit
 import pandas as pd
-
+import requests
 ###############################################################
 streamlit.title("My Parent's New Healthy Diner")
 streamlit.header("Breakfast Menu")
@@ -22,3 +22,7 @@ options = streamlit.multiselect("Pick some fruits:",list(my_fruit_list.index), [
 fruits_to_show = my_fruit_list.loc[options]
 
 streamlit.dataframe(fruits_to_show) ##display the table on the page
+
+#Display Fruityvice api response
+fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
+streamlit.text(fruityvice_response)
