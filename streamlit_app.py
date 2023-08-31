@@ -24,6 +24,10 @@ fruits_to_show = my_fruit_list.loc[options]
 streamlit.dataframe(fruits_to_show) ##display the table on the page
 streamlit.header('FruityVice Fruit Advice')
 
+## Add a Text Entry Box and Send the Input to Fruityvice as Part of the API Call
+fruit_choice = streamlit.text_input('What fruit would you like information about?','example: Kiwi')
+streamlit.write('The user entered ', fruit_choice)
+
 #Display Fruityvice api response based on user Input
 
 fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice.title() )
@@ -33,7 +37,3 @@ fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_c
 fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
 
 streamlit.dataframe(fruityvice_normalized)
-
-## Add a Text Entry Box and Send the Input to Fruityvice as Part of the API Call
-fruit_choice = streamlit.text_input('What fruit would you like information about?','example: Kiwi')
-streamlit.write('The user entered ', fruit_choice)
