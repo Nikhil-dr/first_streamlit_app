@@ -25,7 +25,7 @@ streamlit.dataframe(fruits_to_show) ##display the table on the page
 streamlit.header('FruityVice Fruit Advice')
 
 ## Add a Text Entry Box and Send the Input to Fruityvice as Part of the API Call
-fruit_choice = streamlit.text_input('What fruit would you like information about?','example: Kiwi')
+fruit_choice = streamlit.text_input('What fruit would you like information about?')
 streamlit.write('The user entered ', fruit_choice)
 
 #Display Fruityvice api response based on user Input
