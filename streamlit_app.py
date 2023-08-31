@@ -26,7 +26,7 @@ streamlit.header('FruityVice Fruit Advice')
 
 #Display Fruityvice api response based on user Input
 
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + title(fruit_choice) )
+fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice.title() )
 #streamlit.text(fruityvice_response.json())
 
 # show json data in tabular form
