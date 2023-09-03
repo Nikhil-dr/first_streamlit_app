@@ -62,8 +62,16 @@ if streamlit.button('Get fruit load list'):
 ##Don't run anything from here on
 streamlit.stop()
 ## Add a Text Entry Box and Send the Input to Fruityvice as Part of the API Call
+def insert_row_sf(new_fruit):
+    with my_cnx.cursor() as my_cur:
+        my_cur.execute("insert into PC_RIVERY_DB.PUBLIC.FRUIT_LOAD_LIST values('from streamlit')")
+        return "Thanks for adding " + new_fruit
 add_my_fruit = streamlit.text_input('What fruit would you like to add?','Kiwi')
-streamlit.write('Your choice of fruit ', add_my_fruit,' is added!')
+if streamlit.button('Add a fruit to the list'):
+    my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+    back_from_function = insert_row_sf(new_fruit)
+    streamlit.text(back_from_function)
+
+#streamlit.write('Your choice of fruit ', add_my_fruit,' is added!')
 
 ## insert rows into SF table
-my_cur.execute("insert into PC_RIVERY_DB.PUBLIC.FRUIT_LOAD_LIST values('from streamlit')")
