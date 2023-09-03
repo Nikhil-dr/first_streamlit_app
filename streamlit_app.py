@@ -14,6 +14,15 @@ streamlit.text("🥑🍞 Avacado Toast")
 
 streamlit.header('🍌🥭 Build Your Own Fruit Smoothie 🥝🍇')
 
+
+## create a function to get fruityvice dataframe
+def get_fruityvice_data(choice):
+    #Display Fruityvice api response based on user Input
+    fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + choice.title() )
+    # show json data in tabular form
+    fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
+    return fruityvice_normalized
+
 ##create pd dataframe to read CSV file from that S3 bucket
 my_fruit_list = pd.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.com/dabw/fruit_macros.txt")
 streamlit.dataframe(my_fruit_list)
@@ -31,13 +40,8 @@ try:
     if not fruit_choice:
         streamlit.error('Fruit selected does not exist')
     else:
-        #Display Fruityvice api response based on user Input
-
-        fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice.title() )
-        # show json data in tabular form
-        fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
-
-        streamlit.dataframe(fruityvice_normalized)
+        back_from_function = get_fruityvice_data(choice)
+        streamlit.dataframe(back_from_function)
 except URLError as e:
     streamlit.error()
 
