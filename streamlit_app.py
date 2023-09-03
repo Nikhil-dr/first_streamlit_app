@@ -3,6 +3,7 @@ import streamlit
 import pandas as pd
 import requests
 import snowflake.connector
+from urllib.error import URLError
 ###############################################################
 streamlit.title("My Parent's New Healthy Diner")
 streamlit.header("Breakfast Menu")
@@ -24,20 +25,27 @@ fruits_to_show = my_fruit_list.loc[options]
 
 streamlit.dataframe(fruits_to_show) ##display the table on the page
 streamlit.header('FruityVice Fruit Advice')
+try:
+    ## Add a Text Entry Box and Send the Input to Fruityvice as Part of the API Call
+    fruit_choice = streamlit.text_input('What fruit would you like information about?')
+    if not fruit_choice:
+        streamlit.error('Fruit selected does not exist')
+    else:
+        #Display Fruityvice api response based on user Input
 
-## Add a Text Entry Box and Send the Input to Fruityvice as Part of the API Call
-fruit_choice = streamlit.text_input('What fruit would you like information about?','Kiwi')
-streamlit.write('The user entered ', fruit_choice)
+        fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice.title() )
+        # show json data in tabular form
+        fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
 
-#Display Fruityvice api response based on user Input
+        streamlit.dataframe(fruityvice_normalized)
+except URLError as e:
+    streamlit.error()
 
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice.title() )
-#streamlit.text(fruityvice_response.json())
 
-# show json data in tabular form
-fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
+    #streamlit.write('The user entered ', fruit_choice)
 
-streamlit.dataframe(fruityvice_normalized)
+##Don't run anything from here on
+streamlit.stop()
 
 ##Check SF connection with streamlit
 my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
