@@ -33,7 +33,6 @@ options = streamlit.multiselect("Pick some fruits:",list(my_fruit_list.index), [
 fruits_to_show = my_fruit_list.loc[options]
 
 streamlit.dataframe(fruits_to_show) ##display the table on the page
-streamlit.header('FruityVice Fruit Advice')
 try:
     ## Add a Text Entry Box and Send the Input to Fruityvice as Part of the API Call
     fruit_choice = streamlit.text_input('What fruit would you like information about?')
@@ -44,6 +43,7 @@ try:
         streamlit.dataframe(back_from_function)
 except URLError as e:
     streamlit.error()
+streamlit.header('FruityVice Fruit Advice')
 
 ##Check SF connection with streamlit
 ##snowflake related function
