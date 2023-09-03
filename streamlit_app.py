@@ -16,9 +16,9 @@ streamlit.header('🍌🥭 Build Your Own Fruit Smoothie 🥝🍇')
 
 
 ## create a function to get fruityvice dataframe
-def get_fruityvice_data(choice):
+def get_fruityvice_data(fruit_choice):
     #Display Fruityvice api response based on user Input
-    fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + choice.title() )
+    fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice.title() )
     # show json data in tabular form
     fruityvice_normalized = pd.json_normalize(fruityvice_response.json())
     return fruityvice_normalized
@@ -40,7 +40,7 @@ try:
     if not fruit_choice:
         streamlit.error('Fruit selected does not exist')
     else:
-        back_from_function = get_fruityvice_data(choice)
+        back_from_function = get_fruityvice_data(fruit_choice)
         streamlit.dataframe(back_from_function)
 except URLError as e:
     streamlit.error()
