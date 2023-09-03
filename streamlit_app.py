@@ -45,20 +45,22 @@ try:
 except URLError as e:
     streamlit.error()
 
+##Check SF connection with streamlit
+##snowflake related function
+def get_fruit_load_list():
+    with my_cnx.cursor as my_cur:
+        my_cur.execute('SELECT * from fruit_load_list')
+        return my_cur.fetchall()
 
-    #streamlit.write('The user entered ', fruit_choice)
+##Add a button
+if streamlit.button('Get fruit load list'):
+    my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+    my_data_row = get_fruit_load_list()
+    streamlit.dataframe(my_data_row)
+
 
 ##Don't run anything from here on
 streamlit.stop()
-
-##Check SF connection with streamlit
-my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
-my_cur = my_cnx.cursor()
-my_cur.execute("SELECT * from fruit_load_list")
-my_data_row = my_cur.fetchall()
-streamlit.header("The fruit load list contains:")
-streamlit.dataframe(my_data_row)
-
 ## Add a Text Entry Box and Send the Input to Fruityvice as Part of the API Call
 add_my_fruit = streamlit.text_input('What fruit would you like to add?','Kiwi')
 streamlit.write('Your choice of fruit ', add_my_fruit,' is added!')
