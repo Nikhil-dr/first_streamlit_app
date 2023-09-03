@@ -60,7 +60,7 @@ if streamlit.button('Get fruit load list'):
 
 
 ##Don't run anything from here on
-streamlit.stop()
+#streamlit.stop()
 ## Add a Text Entry Box and Send the Input to Fruityvice as Part of the API Call
 def insert_row_sf(new_fruit):
     with my_cnx.cursor() as my_cur:
